@@ -2,3 +2,5 @@
 
 Napišite program koji iscrtava sinusoidu. 
 Tekst legende i interval na apscisi su konfigurabilni.
+
+![main](/screenshot.jpg?raw=true)
