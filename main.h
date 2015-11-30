@@ -6,6 +6,7 @@
 #include <vector>
 
 class SinDialog : public Dialog {
+public:
 	double period;
 	tstring legText;
 protected:
@@ -15,16 +16,16 @@ protected:
 };
 
 class MainWindow : public Window {
-	std::vector<POINT> points;
+	
 	tstring sText;
-	LOGFONT logFont;
+	//LOGFONT logFont;
 	double dPeriod;
 public:
-	MainWindow() : dPeriod(0), sText("Legend")
-	{
+	MainWindow() : dPeriod(6.28), sText("Legenda") {}
+	/*{
 		::ZeroMemory(&logFont, sizeof(logFont));
 		_tcscpy(logFont.lfFaceName, _T("Arial"));
-	}
+	}*/
 protected:
 	void OnPaint(HDC hdc);
 	void OnCommand(int id);

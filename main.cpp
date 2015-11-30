@@ -1,11 +1,14 @@
 #include "main.h"
 #include "rc.h"
+#include <math.h>
 
 int SinDialog::IDD(){
 	return IDD_LEGEND; 
 }
 
 bool SinDialog::OnInitDialog(){
+	SetReal(IDC_EDIT1, period);
+	SetText(IDC_EDIT2, legText);
 	return true;
 }
 
@@ -15,8 +18,9 @@ bool SinDialog::OnOK(){
 		SinDialog::period = SinDialog::GetReal(IDC_EDIT1);
 		SinDialog::legText = SinDialog::GetText(IDC_EDIT2);
 	}
-	catch (XCtrl ex)
+	catch (XCtrl)
 	{
+		MessageBox(*this, "Krivi unos!", "Greška!", MB_OK | MB_ICONERROR|WS_VISIBLE);
 		return false;
 	}
 	return true;
@@ -31,14 +35,29 @@ void MainWindow::OnPaint(HDC hdc){
 	LineTo(hdc, rect.right, rect.bottom / 2);
 	MoveToEx(hdc, rect.right / 2, 0,NULL);
 	LineTo(hdc, rect.right / 2, rect.bottom);
-
-
+	MoveToEx(hdc, 0, rect.bottom / 2,NULL);
+	for (int x = 0; x < rect.right; ++x)
+	{
+		int y = (1+sin(-x*dPeriod / rect.right))*rect.bottom / 2;
+		LineTo(hdc, x, y);
+		
+	}
+	DrawText(hdc, sText.c_str(), -1, &rect, DT_RIGHT | DT_TOP|DT_SINGLELINE);
+	InvalidateRect(*this, &rect, false);
 }
 
 void MainWindow::OnCommand(int id){
 	switch(id){
-		case ID_LEGEND: 
-			
+	case ID_LEGEND: 
+	{
+		SinDialog sdlg;
+		sdlg.period = dPeriod;
+		sdlg.legText = sText;
+		if (sdlg.DoModal(0, *this) == IDOK) {
+			dPeriod = sdlg.period;
+			sText = sdlg.legText;
+		}
+	}
 			break;
 		case ID_EXIT: 
 			DestroyWindow(*this); 
