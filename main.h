@@ -16,16 +16,10 @@ protected:
 };
 
 class MainWindow : public Window {
-	
 	tstring sText;
-	//LOGFONT logFont;
 	double dPeriod;
 public:
 	MainWindow() : dPeriod(6.28), sText("Legenda") {}
-	/*{
-		::ZeroMemory(&logFont, sizeof(logFont));
-		_tcscpy(logFont.lfFaceName, _T("Arial"));
-	}*/
 protected:
 	void OnPaint(HDC hdc);
 	void OnCommand(int id);
