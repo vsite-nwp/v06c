@@ -43,7 +43,7 @@ void MainWindow::OnPaint(HDC hdc){
 		LineTo(hdc, x, y);
 	}
 	DrawText(hdc, sText.c_str(), -1, &rect, DT_RIGHT | DT_TOP|DT_SINGLELINE);
-	InvalidateRect(*this, &rect, false);
+	//InvalidateRect(*this, &rect, false);
 }
 
 void MainWindow::OnCommand(int id){
