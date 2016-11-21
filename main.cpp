@@ -15,6 +15,14 @@ bool SinDialog::OnOK(){
 
 
 void MainWindow::OnPaint(HDC hdc){
+	RECT rect;
+	GetClientRect(*this, &rect);
+	//crtanje x osi
+	MoveToEx(hdc, 0, rect.bottom / 2, NULL);
+	LineTo(hdc, rect.right, rect.bottom / 2);
+	//crtanje y osi
+	MoveToEx(hdc, rect.right / 2, 0, NULL);
+	LineTo(hdc, rect.right / 2, rect.bottom);
 }
 
 void MainWindow::OnCommand(int id){

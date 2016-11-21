@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\kapusta\source\repos\v06c\nwpdlg.h(17): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+  v6c.vcxproj -> C:\Users\Kapusta\Source\Repos\v06c\.\Debug\v6c.exe
+  v6c.vcxproj -> .\Debug/v6c.pdb (Full PDB)
