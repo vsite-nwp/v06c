@@ -18,7 +18,7 @@ protected:
 	void SetText(int idCtrl, const tstring& val);
 	tstring GetText(int idCtrl);
 	void SetReal(int idCtrl, double val);
-	double GetReal(int idCtrl);
+	double GetReal(int idCtrl) throw (XCtrl);
 
 //	overridables
 	virtual int IDD() = 0;
