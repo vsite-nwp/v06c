@@ -19,7 +19,7 @@ class MainWindow : public Window {
 public:
 	tstring wintext;
 	double winperiod;
-	MainWindow() : winperiod(3.14), wintext("ughh") {}
+	MainWindow() : winperiod(0.0), wintext("") {}
 protected:
 	void OnPaint(HDC hdc);
 	void OnCommand(int id);
