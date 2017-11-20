@@ -25,10 +25,22 @@ bool SinDialog::OnOK() {
 
 
 void MainWindow::OnPaint(HDC hdc){
+	RECT rect;
+	GetClientRect(*this, &rect);
+	DrawText(hdc, wintext.c_str(), -1, &rect, DT_LEFT | DT_TOP | DT_SINGLELINE);
+	MoveToEx(hdc, 0, rect.bottom/2, NULL);
+	LineTo(hdc, rect.right, rect.bottom/2);
+	MoveToEx(hdc, rect.right/2, 0, NULL);
+	LineTo(hdc, rect.right/2, rect.bottom);
+	MoveToEx(hdc, rect.left, (1 - sin(rect.right/2*winperiod/rect.right))*rect.bottom/2, NULL);
+	for(int x = 0, y = 0; x <= rect.right; x++){
+			y = (1 - sin((x - rect.right/2)*winperiod/rect.right))*rect.bottom/2;
+			LineTo(hdc, x, y);
+		}
 }
 
 void MainWindow::OnCommand(int id){
-	switch(id){
+	switch (id) {
 	case ID_LEGEND: {
 		SinDialog sinDialog;
 		sinDialog.period = winperiod;
@@ -37,13 +49,13 @@ void MainWindow::OnCommand(int id){
 			winperiod = sinDialog.period;
 			wintext = sinDialog.text;
 		}
-
+	}
 		InvalidateRect(*this, NULL, true);
 		break;
-	}
-		case ID_EXIT: 
-			DestroyWindow(*this); 
-			break;
+	
+	case ID_EXIT:
+		DestroyWindow(*this);
+		break;
 	}
 }
 
