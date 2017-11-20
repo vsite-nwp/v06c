@@ -13,7 +13,7 @@ bool SinDialog::OnInitDialog(){
 
 bool SinDialog::OnOK() {
 	try {
-		period = GetInt(IDC_EDIT1);
+		period = GetReal(IDC_EDIT1);
 		text = GetText(IDC_EDIT2);
 	}
 	catch (XCtrl&){
