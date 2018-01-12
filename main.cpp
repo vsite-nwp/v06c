@@ -6,6 +6,8 @@ int SinDialog::IDD() {
 }
 
 bool SinDialog::OnInitDialog() {
+	SetText(IDC_EDIT2, dStr);
+	SetReal(IDC_EDIT1, dPeriod);
 	return true;
 }
 
@@ -26,11 +28,23 @@ void MainWindow::OnPaint(HDC hdc) {
 
 void MainWindow::OnCommand(int id) {
 	switch (id) {
-	case ID_LEGEND:
+		case ID_LEGEND:
+		{
+			SinDialog dialog;
+			dialog.dPeriod = wPeriod;
+			dialog.dStr = wStr;
 
-	case ID_EXIT:
-		DestroyWindow(*this);
-		break;
+			if (dialog.DoModal(0, *this) == IDOK) {
+				wStr = dialog.dStr;
+				wPeriod = dialog.dPeriod;
+			}
+
+			InvalidateRect(*this, NULL, true);
+			break;
+		}
+		case ID_EXIT:
+			DestroyWindow(*this);
+			break;
 	}
 }
 
