@@ -12,6 +12,8 @@ bool SinDialog::OnInitDialog() {
 }
 
 bool SinDialog::OnOK() {
+	dStr = GetText(IDC_EDIT2);
+	dPeriod = GetReal(IDC_EDIT1);
 	return true;
 }
 
@@ -22,23 +24,29 @@ void MainWindow::OnPaint(HDC hdc) {
 
 	MoveToEx(hdc, rc.right / 2, 0, NULL);
 	LineTo(hdc, rc.right / 2, rc.bottom);
-	MoveToEx(hdc, 0, rc.bottom / 2, NULL);
-	LineTo(hdc, rc.right, rc.bottom / 2);
+	MoveToEx(hdc, rc.right, rc.bottom / 2, NULL);
+	LineTo(hdc, rc.left, rc.bottom / 2);
+
+	for (double y = rc.right / 2, x = 0; y <= rc.right; ++y)
+	{
+		x = sin(y);
+		LineTo(hdc, y + rc.right / 2, x);
+	}
 }
 
 void MainWindow::OnCommand(int id) {
 	switch (id) {
 		case ID_LEGEND:
 		{
-			SinDialog dialog;
-			dialog.dPeriod = wPeriod;
-			dialog.dStr = wStr;
+			SinDialog dlg;
+			dlg.dPeriod = wPeriod;
+			dlg.dStr = wStr;
 
-			if (dialog.DoModal(0, *this) == IDOK) {
-				wStr = dialog.dStr;
-				wPeriod = dialog.dPeriod;
+			if (dlg.DoModal(0, *this) == IDOK) {
+				wStr = dlg.dStr;
+				wPeriod = dlg.dPeriod;
 			}
-
+			
 			InvalidateRect(*this, NULL, true);
 			break;
 		}
