@@ -18,4 +18,3 @@ protected:
 	void OnCommand(int id);
 	void OnDestroy();
 };
- 
