@@ -17,7 +17,7 @@ protected:
 
 class MainWindow : public Window {
 public:
-	double wPeriod = 1;
+	double wPeriod = 3.14;
 	tstring wStr = "Legenda";
 protected:
 	void OnPaint(HDC hdc);

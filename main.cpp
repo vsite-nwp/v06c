@@ -21,16 +21,18 @@ bool SinDialog::OnOK() {
 void MainWindow::OnPaint(HDC hdc) {
 	RECT rc;
 	GetClientRect(*this, &rc);
+	DrawText(hdc, wStr.c_str(), -1, &rc, DT_TOP | DT_RIGHT);
 
 	MoveToEx(hdc, rc.right / 2, 0, NULL);
 	LineTo(hdc, rc.right / 2, rc.bottom);
 	MoveToEx(hdc, rc.right, rc.bottom / 2, NULL);
 	LineTo(hdc, rc.left, rc.bottom / 2);
-
-	for (double y = rc.right / 2, x = 0; y <= rc.right; ++y)
+	
+	for (double x = 0, y = 0; x <= rc.right; ++x)
 	{
-		x = sin(y);
-		LineTo(hdc, y + rc.right / 2, x);
+		//y = floor( ( ( ( ( -1 * sin(x * 3.141 / 180 ) ) + 1) * ( SINEHEIGHT / 2 ) ) ) + 0.5 );
+		y = ((((1 * sin(x * wPeriod * 2 / rc.right)) + 1) * (rc.bottom / 2))) + 0.5;
+		LineTo(hdc, x, y);
 	}
 }
 
