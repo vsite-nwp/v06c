@@ -6,6 +6,9 @@
 
 
 class SinDialog : public Dialog {
+public:
+	double dPeriod;
+	tstring dStr;
 protected:
 	int IDD();
 	bool OnInitDialog();
@@ -13,9 +16,11 @@ protected:
 };
 
 class MainWindow : public Window {
+public:
+	double wPeriod = 3.14;
+	tstring wStr = "Legenda";
 protected:
 	void OnPaint(HDC hdc);
 	void OnCommand(int id);
 	void OnDestroy();
 };
- 
