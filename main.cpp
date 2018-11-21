@@ -1,11 +1,6 @@
 #include "main.h"
 #include "rc.h"
-#include <cmath>
-#include <list>
-#define PI 3.14159265358979323846
 
-double interval = 2 * PI;
-tstring txt = "";
 
 int SinDialog::IDD(){
 	return IDD_LEGEND; 
@@ -20,7 +15,6 @@ bool SinDialog::OnInitDialog(){
 bool SinDialog::OnOK(){
 	interval = GetReal(IDC_EDIT1);
 	txt = GetText(IDC_EDIT2);
-	InvalidateRect(GetParent(*this), NULL, NULL);
 	return true;
 }
 
@@ -48,7 +42,13 @@ void MainWindow::OnCommand(int id){
 		case ID_LEGEND: 
 		{
 			SinDialog dlg;
-			dlg.DoModal(NULL, NULL);
+			dlg.interval = interval; 
+			dlg.txt = txt;
+			if (dlg.DoModal(NULL, *this) == IDOK) {
+				interval = dlg.interval;
+				txt = dlg.txt;
+				InvalidateRect(*this, NULL, true);
+			}
 			break;
 		}
 		case ID_EXIT: 
@@ -64,7 +64,6 @@ void MainWindow::OnDestroy(){
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hp, LPSTR cmdLine, int nShow)
 {
-	SinDialog dlg;
 	Application app;
 	MainWindow wnd;
 	wnd.Create(NULL, WS_OVERLAPPEDWINDOW | WS_VISIBLE, "NWP", 
