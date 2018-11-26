@@ -6,21 +6,60 @@ int SinDialog::IDD(){
 }
 
 bool SinDialog::OnInitDialog(){
+	SetText(IDC_EDIT2, headerString);
+	SetReal(IDC_EDIT1, piNumber);
 	return true;
 }
 
 bool SinDialog::OnOK(){
+	headerString = GetText(IDC_EDIT2);
+	piNumber = GetReal(IDC_EDIT1);
 	return true;
 }
 
 
 void MainWindow::OnPaint(HDC hdc){
+	RECT rc;
+	GetClientRect(*this, &rc);
+
+	DrawText(hdc, setHeader.c_str(), setHeader.length(), &rc, SS_RIGHT);
+
+	MoveToEx(hdc, rc.right / 2, 0, NULL);
+	LineTo(hdc, rc.right / 2, rc.bottom);
+	MoveToEx(hdc, 0, rc.bottom / 2, NULL);
+	LineTo(hdc, rc.right, rc.bottom / 2);
+
+	SetViewportOrgEx(hdc, rc.right / 2, rc.bottom / 2, NULL);
+	int width = rc.right / 2;
+	int height = rc.bottom / 2;
+
+	MoveToEx(hdc, - width, 0, NULL);
+
+	for (int x = - width; x <= width; ++x) {
+		double y = - height * sin((setPi/width) * x);
+		LineTo(hdc, x, y);
+		MoveToEx(hdc, x, y, NULL);
+	}	
 }
 
 void MainWindow::OnCommand(int id){
 	switch(id){
-		case ID_LEGEND: 
+		case ID_LEGEND:
+		{
+			SinDialog dial;
+			bool onOk;
+
+			dial.headerString = setHeader;
+			dial.piNumber = setPi;
+
+			onOk = dial.DoModal(0, *this);
+			if (onOk) {
+				setHeader = dial.headerString;
+				setPi = dial.piNumber;
+			}
+			InvalidateRect(*this, NULL, true);
 			break;
+		}
 		case ID_EXIT: 
 			DestroyWindow(*this); 
 			break;
