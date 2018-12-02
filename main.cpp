@@ -19,7 +19,7 @@ bool SinDialog::OnOK(){
 		piNumber = GetReal(IDC_EDIT1);
 	}
 	catch(XCtrl&) {
-		MessageBox(*this, "Provjerite dali ste ispravno unjeli podatke!", NULL, MB_ICONWARNING);
+		MessageBox(*this, ERR_STR, NULL, MB_ICONWARNING);
 		return false;
 	}
 	return true;
@@ -30,7 +30,7 @@ void MainWindow::OnPaint(HDC hdc){
 	RECT rc;
 	GetClientRect(*this, &rc);
 
-	DrawText(hdc, setHeader.c_str(), setHeader.length(), &rc, DT_RIGHT);
+	DrawText(hdc, setHeader.c_str(), setHeader.length(), &rc, DT_RIGHT | DT_TOP);
 
 	MoveToEx(hdc, rc.right / 2, 0, NULL);
 	LineTo(hdc, rc.right / 2, rc.bottom);
@@ -59,12 +59,11 @@ void MainWindow::OnCommand(int id){
 			dial.headerString = setHeader;
 			dial.piNumber = setPi;
 
-			onOk = dial.DoModal(0, *this);
-			if (onOk) {
+			if (dial.DoModal(0, *this) == IDOK) {
 				setHeader = dial.headerString;
 				setPi = dial.piNumber;
+				InvalidateRect(*this, NULL, true);
 			}
-			InvalidateRect(*this, NULL, true);
 			break;
 		}
 		case ID_EXIT: 
