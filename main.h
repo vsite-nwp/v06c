@@ -17,7 +17,7 @@ protected:
 
 class MainWindow : public Window {
 public:
-	double setPi = 3.14;
+	double setPi = M_PI;;
 	tstring setHeader = "HEADER";
 protected:
 	void OnPaint(HDC hdc);

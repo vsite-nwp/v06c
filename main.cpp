@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "main.h"
 #include "rc.h"
 
@@ -12,8 +14,14 @@ bool SinDialog::OnInitDialog(){
 }
 
 bool SinDialog::OnOK(){
-	headerString = GetText(IDC_EDIT2);
-	piNumber = GetReal(IDC_EDIT1);
+	try {
+		headerString = GetText(IDC_EDIT2);
+		piNumber = GetReal(IDC_EDIT1);
+	}
+	catch(XCtrl&) {
+		MessageBox(*this, "Provjerite dali ste ispravno unjeli podatke!", NULL, MB_ICONWARNING);
+		return false;
+	}
 	return true;
 }
 
@@ -22,7 +30,7 @@ void MainWindow::OnPaint(HDC hdc){
 	RECT rc;
 	GetClientRect(*this, &rc);
 
-	DrawText(hdc, setHeader.c_str(), setHeader.length(), &rc, SS_RIGHT);
+	DrawText(hdc, setHeader.c_str(), setHeader.length(), &rc, DT_RIGHT);
 
 	MoveToEx(hdc, rc.right / 2, 0, NULL);
 	LineTo(hdc, rc.right / 2, rc.bottom);
@@ -38,7 +46,6 @@ void MainWindow::OnPaint(HDC hdc){
 	for (int x = - width; x <= width; ++x) {
 		double y = - height * sin((setPi/width) * x);
 		LineTo(hdc, x, y);
-		MoveToEx(hdc, x, y, NULL);
 	}	
 }
 
