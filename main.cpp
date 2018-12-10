@@ -14,12 +14,15 @@ bool SinDialog::OnInitDialog(){
 }
 
 bool SinDialog::OnOK(){
+	char s[128];
+
+	LoadString(GetModuleHandle(NULL), ERR_STR, s, sizeof s);
 	try {
 		headerString = GetText(IDC_EDIT2);
 		piNumber = GetReal(IDC_EDIT1);
 	}
 	catch(XCtrl&) {
-		MessageBox(*this, ERR_STR, NULL, MB_ICONWARNING);
+		MessageBox(*this, s, NULL, MB_ICONWARNING);
 		return false;
 	}
 	return true;

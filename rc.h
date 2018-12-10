@@ -6,6 +6,4 @@
 #define IDC_EDIT1    105
 #define IDC_EDIT2    106
 
-#define ERR_STR "Provjerite jeste li unijeli ispravne podatke!"
-
-
+#define ERR_STR		 1

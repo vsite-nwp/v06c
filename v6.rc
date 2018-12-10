@@ -24,3 +24,8 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,91,24,50,14
 END
 
+STRINGTABLE
+BEGIN
+	ERR_STR "Provjerite jeste li unijeli ispravne podatke!"
+END
+
