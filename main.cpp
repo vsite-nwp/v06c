@@ -15,8 +15,15 @@ bool SinDialog::OnInitDialog()
 
 bool SinDialog::OnOK()
 {
-	sinPeriod = GetReal(IDC_EDIT1);
-	dialText = GetText(IDC_EDIT2);
+	try
+	{
+		sinPeriod = GetReal(IDC_EDIT1);
+		dialText = GetText(IDC_EDIT2);
+	}
+	catch (XCtrl)
+	{
+		return false;
+	}
 	return true;
 }
 
@@ -48,9 +55,9 @@ void MainWindow::OnCommand(int id) {
 		{
 			winPeriod = sd.GetSinPeriod();
 			winText = sd.GetDialText();
+			InvalidateRect(*this, NULL, true);
 		}
 	}
-	InvalidateRect(*this, NULL, true);
 	break;
 	case ID_EXIT:
 		DestroyWindow(*this);

@@ -1,10 +1,10 @@
 #include <windows.h>
 #include <tchar.h>
-#include <math.h>
-
 #include "nwpwin.h"
 #include "nwpdlg.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 class SinDialog : public Dialog {
 	tstring dialText;
@@ -29,6 +29,6 @@ protected:
 	void OnCommand(int id);
 	void OnDestroy();
 public:
-	MainWindow() : winPeriod(0.0), winText("") {}
+	MainWindow() : winPeriod(2*M_PI) {}
 };
  
