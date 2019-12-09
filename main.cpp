@@ -37,7 +37,7 @@ void MainWindow::OnPaint(HDC hdc)
 
 	DrawText(hdc, inputedText.c_str(), -1, &sinDrawing, DT_RIGHT | DT_TOP | DT_SINGLELINE);
 
-	MoveToEx(hdc, 0, sinDrawing.bottom / 2, NULL);
+	MoveToEx(hdc, -1, sinDrawing.bottom / 2, NULL);
 	LineTo(hdc, sinDrawing.right, sinDrawing.bottom / 2);
 	MoveToEx(hdc, sinDrawing.right / 2, 0, NULL);
 	LineTo(hdc, sinDrawing.right / 2, sinDrawing.bottom);
