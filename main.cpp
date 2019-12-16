@@ -28,28 +28,24 @@ bool SinDialog::OnOK(){
 
 void MainWindow::OnPaint(HDC hdc){
 	RECT rect;
+	HPEN p = CreatePen(PS_SOLID, 2, BLACK_PEN);
 	GetClientRect(*this, &rect);
 	DrawText(hdc, legendText.c_str(), -1, &rect, DT_RIGHT | DT_TOP | DT_SINGLELINE);
-
+		
 	MoveToEx(hdc, 0, rect.bottom / 2, NULL);
-	LineTo(hdc, rect.right, rect.bottom / 2);
-	MoveToEx(hdc, 0, (rect.bottom / 2) - 1, NULL);
-	LineTo(hdc, rect.right, (rect.bottom / 2) - 1);
-	MoveToEx(hdc, 0, (rect.bottom / 2) + 1, NULL);
-	LineTo(hdc, rect.right, (rect.bottom / 2) + 1);
 
+	SelectObject(hdc, p);
+	LineTo(hdc, rect.right, rect.bottom / 2);
 	MoveToEx(hdc, rect.right / 2, 0, NULL);
 	LineTo(hdc, rect.right / 2, rect.bottom);
-	MoveToEx(hdc, (rect.right / 2) - 1, 0, NULL);
-	LineTo(hdc, (rect.right / 2) - 1, rect.bottom);
-	MoveToEx(hdc, (rect.right / 2) + 1, 0, NULL);
-	LineTo(hdc, (rect.right / 2) + 1, rect.bottom);
-	
-	MoveToEx(hdc, rect.left, rect.bottom / 2, NULL);
-	
+		
+	MoveToEx(hdc, 0, sinus(0, sinusPeriod, rect.right, rect.bottom), NULL);
+
+	p = CreatePen(PS_SOLID, 1, BLACK_PEN);
+	SelectObject(hdc, p);
 	for (double x = 0, y = 0; x <= rect.right; ++x)
 	{
-		y = sinus(x, rect.right, rect.bottom);
+		y = sinus(x, sinusPeriod, rect.right, rect.bottom);
 		LineTo(hdc, x, y);
 	}
 }
