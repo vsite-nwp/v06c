@@ -1,6 +1,10 @@
 #include "main.h"
 #include "rc.h"
 
+double sinus(double x, double period, LONG right, LONG bottom) { 
+	return (1 - sin((x - (right / 2)) * period / right)) * bottom / 2; 
+}
+
 int SinDialog::IDD(){
 	return IDD_LEGEND; 
 }
@@ -40,14 +44,16 @@ void MainWindow::OnPaint(HDC hdc){
 	LineTo(hdc, rect.right / 2, rect.bottom);
 		
 	MoveToEx(hdc, 0, sinus(0, sinusPeriod, rect.right, rect.bottom), NULL);
-
+	DeletePen(p);
 	p = CreatePen(PS_SOLID, 1, BLACK_PEN);
 	SelectObject(hdc, p);
+	
 	for (double x = 0, y = 0; x <= rect.right; ++x)
 	{
 		y = sinus(x, sinusPeriod, rect.right, rect.bottom);
 		LineTo(hdc, x, y);
 	}
+	DeletePen(p);
 }
 
 void MainWindow::OnCommand(int id){

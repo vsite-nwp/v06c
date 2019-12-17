@@ -30,4 +30,3 @@ public:
 	MainWindow() : sinusPeriod(2 * M_PI) {}
 };
 
-double sinus(double x, double period, LONG right, LONG bottom) { return (1 - sin((x - (right / 2)) * period / right)) * bottom / 2; }
