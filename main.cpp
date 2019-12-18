@@ -32,28 +32,25 @@ bool SinDialog::OnOK(){
 
 void MainWindow::OnPaint(HDC hdc){
 	RECT rect;
-	HPEN p = CreatePen(PS_SOLID, 2, BLACK_PEN);
+	HGDIOBJ holdpen;
+
 	GetClientRect(*this, &rect);
 	DrawText(hdc, legendText.c_str(), -1, &rect, DT_RIGHT | DT_TOP | DT_SINGLELINE);
-		
-	MoveToEx(hdc, 0, rect.bottom / 2, NULL);
 
-	SelectObject(hdc, p);
+	holdpen = SelectObject(hdc, CreatePen(PS_SOLID, 2, BLACK_PEN));
+	MoveToEx(hdc, 0, rect.bottom / 2, NULL);
 	LineTo(hdc, rect.right, rect.bottom / 2);
 	MoveToEx(hdc, rect.right / 2, 0, NULL);
 	LineTo(hdc, rect.right / 2, rect.bottom);
-		
+
+	DeleteObject(SelectObject(hdc, holdpen));
 	MoveToEx(hdc, 0, sinus(0, sinusPeriod, rect.right, rect.bottom), NULL);
-	DeletePen(p);
-	p = CreatePen(PS_SOLID, 1, BLACK_PEN);
-	SelectObject(hdc, p);
 	
 	for (double x = 0, y = 0; x <= rect.right; ++x)
 	{
 		y = sinus(x, sinusPeriod, rect.right, rect.bottom);
 		LineTo(hdc, x, y);
 	}
-	DeletePen(p);
 }
 
 void MainWindow::OnCommand(int id){
