@@ -27,6 +27,6 @@ public:
 	double inputedPeriod;
 	tstring inputedText;
 
-	MainWindow::MainWindow() :inputedPeriod(static_cast<double>(M_PI * 2)), inputedText("Legend") {}
+	MainWindow::MainWindow() :inputedPeriod(M_PI * 2), inputedText("Legend") {}
 
 };
