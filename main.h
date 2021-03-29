@@ -1,21 +1,16 @@
-#include <windows.h>
-#include <tchar.h>
-
 #include "nwpwin.h"
 #include "nwpdlg.h"
 
-
-class SinDialog : public Dialog {
+class sin_dialog : public vsite::nwp::dialog {
 protected:
-	int IDD();
-	bool OnInitDialog();
-	bool OnOK();
+	int idd() const override;
+	bool on_init_dialog() override;
+	bool on_ok() override;
 };
 
-class MainWindow : public Window {
+class main_window : public vsite::nwp::window {
 protected:
-	void OnPaint(HDC hdc);
-	void OnCommand(int id);
-	void OnDestroy();
+	void on_paint(HDC hdc) override;
+	void on_command(int id) override;
+	void on_destroy() override;
 };
- 
