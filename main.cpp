@@ -38,7 +38,7 @@ void main_window::on_paint(HDC hdc){
 	MoveToEx(hdc, graph.left, height, NULL);
 	for (double x = 0, y = 0; x <= graph.right; x++)
 	{
-		y = (1 - sin((x - width) * period / width)) * height;
+		y = (1 - sin((x - width) * period / graph.right)) * height;
 		LineTo(hdc, x, y);
 	}
 }
