@@ -17,9 +17,9 @@ bool sin_dialog::on_ok(){
 		sin = get_real(IDC_EDIT1);
 		legend = get_text(IDC_EDIT2);
 	}
-	catch (std::exception& error)
+	catch (std::exception&)
 	{
-		MessageBoxA(*this, error.what(), "Error", MB_OK | MB_ICONWARNING);
+		MessageBox(*this, L"Invalid input", L"Error", MB_OK | MB_ICONERROR);
 		return false;
 	}
 	return true;
@@ -29,14 +29,16 @@ void main_window::on_paint(HDC hdc){
 	RECT graph;
 	GetClientRect(*this, &graph);
 	DrawText(hdc, periodTxt.c_str(), -1, &graph, DT_RIGHT | DT_TOP | DT_SINGLELINE);
-	MoveToEx(hdc, 0, graph.bottom / 2, NULL);
-	LineTo(hdc, graph.right, graph.bottom / 2);
-	MoveToEx(hdc, graph.right / 2, 0, NULL);
-	LineTo(hdc, graph.right / 2, graph.bottom);
-	MoveToEx(hdc, graph.left, graph.bottom / 2, NULL);
+	int height = graph.bottom / 2;
+	int width = graph.right / 2;
+	MoveToEx(hdc, 0, height, NULL);
+	LineTo(hdc, graph.right, height);
+	MoveToEx(hdc, width, 0, NULL);
+	LineTo(hdc, width, graph.bottom);
+	MoveToEx(hdc, graph.left, height, NULL);
 	for (double x = 0, y = 0; x <= graph.right; x++)
 	{
-		y = (1 - sin((x - (graph.right / 2)) * period / graph.right)) * graph.bottom / 2;
+		y = (1 - sin((x - width) * period / width)) * height;
 		LineTo(hdc, x, y);
 	}
 }
