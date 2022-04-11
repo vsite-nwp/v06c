@@ -20,7 +20,7 @@ bool sin_dialog::on_ok()
 		sin = get_real(IDC_EDIT1);
 		legend = get_text(IDC_EDIT2);
 	}
-	catch (std::exception &e)
+	catch (std::exception)
 	{
 		MessageBox(*this, L"Invalid input", nullptr, MB_OK | MB_ICONERROR);
 		return false;
@@ -41,9 +41,9 @@ void main_window::on_paint(HDC hdc)
 	LineTo(hdc, graph.right, graph_height);
 	MoveToEx(hdc, graph_width, 0, nullptr);
 	LineTo(hdc, graph_width, graph.bottom);
-	MoveToEx(hdc, graph.left, graph_height, nullptr);
+	MoveToEx(hdc, graph.left, (1 - sin((graph.left - graph_width) * interval / graph.right)) * graph_height, nullptr);
 
-	for (double x = 0, y = 0; x <= graph.right; x++)
+	for (double x = graph.left, y = 0; x <= graph.right; x++)
 	{
 		y = (1 - sin((x - graph_width) * interval / graph.right)) * graph_height;
 		LineTo(hdc, x, y);
