@@ -3,6 +3,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+double CalcY(RECT r, double interval, double x);
+
 class sin_dialog : public vsite::nwp::dialog 
 {
 private:

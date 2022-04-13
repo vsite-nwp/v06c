@@ -1,6 +1,11 @@
 #include "main.h"
 #include "rc.h"
 
+double CalcY(RECT r, double interval, double x)
+{
+	return (1 - sin((x - r.right / 2) * interval / r.right)) * r.bottom / 2;
+}
+
 int sin_dialog::idd() const
 {
 	return IDD_LEGEND;
@@ -41,11 +46,11 @@ void main_window::on_paint(HDC hdc)
 	LineTo(hdc, graph.right, graph_height);
 	MoveToEx(hdc, graph_width, 0, nullptr);
 	LineTo(hdc, graph_width, graph.bottom);
-	MoveToEx(hdc, graph.left, (1 - sin((graph.left - graph_width) * interval / graph.right)) * graph_height, nullptr);
+	MoveToEx(hdc, graph.left, CalcY(graph, interval, 0), nullptr);
 
 	for (double x = graph.left, y = 0; x <= graph.right; x++)
 	{
-		y = (1 - sin((x - graph_width) * interval / graph.right)) * graph_height;
+		y = CalcY(graph, interval, x);
 		LineTo(hdc, x, y);
 	}
 }
