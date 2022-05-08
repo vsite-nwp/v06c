@@ -32,8 +32,8 @@ void main_window::on_paint(HDC hdc){
 	LineTo(hdc, graph.right, graph.bottom / 2);
 	MoveToEx(hdc, graph.right / 2, 0, NULL);
 	LineTo(hdc, graph.right / 2, graph.bottom);
-	MoveToEx(hdc, graph.left, graph.bottom / 2, NULL);
-	for (double x = 0, y = 0; x <= graph.right; x++)
+	MoveToEx(hdc, graph.left, (1 - sin((graph.left - graph.right / 2.0) * period / graph.right)) * graph.bottom / 2, NULL);
+	for (double x = graph.left, y = 0; x <= graph.right; x++)
 	{
 		y = (1 - sin((x - (graph.right / 2)) * period / graph.right)) * graph.bottom / 2;
 		LineTo(hdc, x, y);
