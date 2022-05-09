@@ -29,3 +29,5 @@ private:
 public:
 	main_window() : period(2 * M_PI) {}
 };
+
+double GetY(RECT rect, double period, double x);

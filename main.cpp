@@ -23,6 +23,10 @@ bool sin_dialog::on_ok(){
 	}
 	return true;
 }
+double GetY(RECT rect, double period, double x) {
+
+	return (1 - sin((x - rect.right / 2.0) * period / rect.right)) * rect.bottom / 2;
+}
 
 void main_window::on_paint(HDC hdc){
 	RECT graph;
@@ -32,10 +36,10 @@ void main_window::on_paint(HDC hdc){
 	LineTo(hdc, graph.right, graph.bottom / 2);
 	MoveToEx(hdc, graph.right / 2, 0, NULL);
 	LineTo(hdc, graph.right / 2, graph.bottom);
-	MoveToEx(hdc, graph.left, (1 - sin((graph.left - graph.right / 2.0) * period / graph.right)) * graph.bottom / 2, NULL);
+	MoveToEx(hdc, graph.left, GetY(graph, period, 0.0), NULL);
 	for (double x = graph.left, y = 0; x <= graph.right; x++)
 	{
-		y = (1 - sin((x - (graph.right / 2)) * period / graph.right)) * graph.bottom / 2;
+		y = GetY(graph, period, x) ;
 		LineTo(hdc, x, y);
 	}
 }
