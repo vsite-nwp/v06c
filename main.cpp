@@ -1,7 +1,7 @@
 #include "main.h"
 #include "rc.h"
 
-double Y(RECT r, double interval, double x)
+double Y(const RECT r, double interval, double x)
 {
 	return (1 - sin((x - r.right / 2) * interval / r.right)) * r.bottom / 2;
 }
@@ -48,7 +48,7 @@ void main_window::on_paint(HDC hdc)
 	LineTo(hdc, width, graph.bottom);
 	MoveToEx(hdc, graph.left, Y(graph, interval, 0), nullptr);
 
-	for (double x = graph.left, y = 0; x <= graph.right; x++)
+	for (int x = graph.left, y = 0; x <= graph.right; x++)
 	{
 		y = Y(graph, interval, x);
 		LineTo(hdc, x, y);

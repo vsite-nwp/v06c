@@ -12,9 +12,12 @@ protected:
 	bool on_init_dialog() override;
 	bool on_ok() override;
 
-public:
+private:
 	tstring legend;
 	double sinInterval;
+
+public:
+
 	void SetLegendText(tstring str) { legend = str; }
 	tstring GetLegendText() { return legend; }
 	void SetSinInterval(double interval) { sinInterval = interval; }
@@ -27,8 +30,12 @@ protected:
 	void on_paint(HDC hdc) override;
 	void on_command(int id) override;
 	void on_destroy() override;
-public:
+
+private:
 	tstring text;
 	double interval;
+
+public:
+
 	main_window() : interval(2 * M_PI) {}
 };
