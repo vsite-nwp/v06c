@@ -1,7 +1,7 @@
 #include "main.h"
 #include "rc.h"
 
-double Y(const RECT r, double interval, double x)
+double Y(const RECT& r, double interval, double x)
 {
 	return (1 - sin((x - r.right / 2) * interval / r.right)) * r.bottom / 2;
 }

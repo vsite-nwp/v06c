@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-double Y(RECT r, double interval, double x);
+double Y(const RECT& r, double interval, double x);
 
 class sin_dialog : public vsite::nwp::dialog
 {	
